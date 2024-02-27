@@ -12,6 +12,8 @@ jobs:
       run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
     - name: EXTRACT
       run: Expand-Archive ngrok.zip
+    - name: UPDATE
+      run: .\ngrok\ngrok.exe update
     - name: AUTENTIFIKASI
       run: .\ngrok\ngrok.exe authtoken 209um9FEgCcPnlrrj1nzE1VuBXS_3JCTJPJRbEv3ByuekfvKb
     - name: ENABLE TS
@@ -20,4 +22,4 @@ jobs:
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
     - name: DONE!
-      run: .\ngrok\ngrok.exe tcp 3389
+      run: .\ngrok\ngrok.exe tcp 3389 -region ap -log ngrok.log
